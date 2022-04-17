@@ -1,4 +1,4 @@
-import discord
+import discord, random
 
 from discord.ext import commands
 from discord_slash import cog_ext, SlashContext
@@ -23,9 +23,12 @@ class _Feed(commands.Cog):
     )
     @commands.cooldown(1,5, commands.BucketType.user)
     async def _sugest(self, ctx:SlashContext, *, sugestão = None):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
             
             user = self.bot.get_user(int(IdS))
 
@@ -49,9 +52,12 @@ class _Feed(commands.Cog):
     )
     @commands.cooldown(1,5, commands.BucketType.user)
     async def _report(self, ctx:SlashContext, *, report = None):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
             
             user = self.bot.get_user(int(IdS))
 

@@ -1,5 +1,4 @@
-import random
-import discord
+import random,discord
 
 from PIL import ImageDraw, ImageFont, Image
 from io import BytesIO
@@ -25,9 +24,12 @@ class _Img(commands.Cog):
         ]
     )
     async def _procurado(self, ctx:SlashContext, membro: discord.Member = None):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
         
             if membro == None:
                 membro = ctx.author
@@ -58,9 +60,12 @@ class _Img(commands.Cog):
         ]
     )
     async def _conquistamine(self ,ctx:SlashContext, conquista):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
         
             conquista1 = Image.open('./images_fonts/conquista.jpeg')
             
@@ -86,9 +91,12 @@ class _Img(commands.Cog):
         ]
     )
     async def _perfeição(self, ctx:SlashContext, membro: discord.Member = None):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
         
             if membro == None:
                 membro = ctx.author
@@ -131,63 +139,69 @@ class _Img(commands.Cog):
         ]
     )
     async def _safadão(self, ctx:SlashContext, membro: discord.Member = None, escolha = None):
-
-        names = ['1','2','3','4']
-
-        if escolha == None:
-            escolha = random.choice(names)
-
-        safadão = Image.open(f'./images_fonts/{escolha}.jpeg')
-
-        asset = ctx.author.avatar_url_as(size = 128)
-        data = BytesIO(await asset.read())
-        pfp = Image.open(data)
-
-        asset2 = membro.avatar_url_as(size = 128)
-        data2 = BytesIO(await asset2.read())
-        pfp2 = Image.open(data2)
-        
-        if escolha == '1':
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
             
-            pfp = pfp.resize((50,50))
-            safadão.paste(pfp, (142,53))
 
-            pfp2 = pfp2.resize((50,50))
-            safadão.paste(pfp2, (102,35))
+            names = ['1','2','3','4']
 
-            safadão.save('./images_fonts/safadao.png')
+            if escolha == None:
+                escolha = random.choice(names)
 
-        elif escolha == '2':
+            safadão = Image.open(f'./images_fonts/{escolha}.jpeg')
 
-            pfp = pfp.resize((100,100))
-            safadão.paste(pfp, (139,20))
+            asset = ctx.author.avatar_url_as(size = 128)
+            data = BytesIO(await asset.read())
+            pfp = Image.open(data)
 
-            pfp2 = pfp2.resize((20,20))
-            safadão.paste(pfp2, (95,50))
-
-            safadão.save('./images_fonts/safadao.png')
-
-        elif escolha == '3':
-
-            pfp = pfp.resize((81,81))
-            safadão.paste(pfp, (339,51))
+            asset2 = membro.avatar_url_as(size = 128)
+            data2 = BytesIO(await asset2.read())
+            pfp2 = Image.open(data2)
             
-            pfp2 = pfp2.resize((79,79))
-            safadão.paste(pfp2, (238,47))
+            if escolha == '1':
+                
+                pfp = pfp.resize((50,50))
+                safadão.paste(pfp, (142,53))
 
-            safadão.save('./images_fonts/safadao.png')
+                pfp2 = pfp2.resize((50,50))
+                safadão.paste(pfp2, (102,35))
 
-        elif escolha == '4':
+                safadão.save('./images_fonts/safadao.png')
 
-            pfp = pfp.resize((100,100))
-            safadão.paste(pfp, (135,70))
-            
-            pfp2 = pfp2.resize((100,100))
-            safadão.paste(pfp2, (308,10))
+            elif escolha == '2':
 
-            safadão.save('./images_fonts/safadao.png')
+                pfp = pfp.resize((100,100))
+                safadão.paste(pfp, (139,20))
 
-        await ctx.send(file = discord.File('./images_fonts/safadao.png'))
+                pfp2 = pfp2.resize((20,20))
+                safadão.paste(pfp2, (95,50))
+
+                safadão.save('./images_fonts/safadao.png')
+
+            elif escolha == '3':
+
+                pfp = pfp.resize((81,81))
+                safadão.paste(pfp, (339,51))
+                
+                pfp2 = pfp2.resize((79,79))
+                safadão.paste(pfp2, (238,47))
+
+                safadão.save('./images_fonts/safadao.png')
+
+            elif escolha == '4':
+
+                pfp = pfp.resize((100,100))
+                safadão.paste(pfp, (135,70))
+                
+                pfp2 = pfp2.resize((100,100))
+                safadão.paste(pfp2, (308,10))
+
+                safadão.save('./images_fonts/safadao.png')
+
+            await ctx.send(file = discord.File('./images_fonts/safadao.png'))
 
     @_perfeição.error
     async def beg_error(self, ctx: commands.Context, error):

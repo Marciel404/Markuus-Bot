@@ -1,21 +1,14 @@
-import asyncio
-import functools
-import itertools
-import math
-import random
+import asyncio,functools,itertools,math,random,discord, youtube_dl
 
-import discord
-import youtube_dl
 from async_timeout import timeout
 from discord.ext import commands
+from Outhers.Random import better_time, banip
 
 class VoiceError(Exception):
     pass
 
-
 class YTDLError(Exception):
     pass
-
 
 class YTDLSource(discord.PCMVolumeTransformer):
     YTDL_OPTIONS = {
@@ -148,6 +141,7 @@ class Song:
         return embed
 
 
+
 class SongQueue(asyncio.Queue):
     def __getitem__(self, item):
         if isinstance(item, slice):
@@ -275,164 +269,220 @@ class Music(commands.Cog):
         ctx.voice_state = self.get_voice_state(ctx)
 
     async def cog_command_error(self, ctx: commands.Context, error: commands.CommandError):
-        await ctx.send('Aconteceu um erro: {}'.format(str(error)))
+        await ctx.reply('Aconteceu um erro: {}'.format(str(error)))
 
-    @commands.command(name='join', invoke_without_subcommand=True, aliases = ['p'])
+    @commands.command(name='join', invoke_without_subcommand=True, aliases = ['j'])
     async def _join(self, ctx: commands.Context):
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
 
-        destination = ctx.author.voice.channel
-        if ctx.voice_state.voice:
-            await ctx.voice_state.voice.move_to(destination)
-            return
+            destination = ctx.author.voice.channel
+            if ctx.voice_state.voice:
+                await ctx.voice_state.voice.move_to(destination)
+                return
 
-        ctx.voice_state.voice = await destination.connect()
+            ctx.voice_state.voice = await destination.connect()
 
     @commands.command(name='leave', aliases=['disconnect'])
-    @commands.has_permissions(manage_guild=True)
     async def _leave(self, ctx: commands.Context):
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return 
 
-        if not ctx.voice_state.voice:
-            return await ctx.send('Não estou em nenhum canal de voz')
+            if not ctx.voice_state.voice:
+                return await ctx.reply('Não estou em nenhum canal de voz')
 
-        await ctx.voice_state.stop()
-        del self.voice_states[ctx.guild.id]
+            ctx.voice_state.songs.clear()
+            await ctx.voice_state.stop()
+            del self.voice_states[ctx.guild.id]
 
     @commands.command(name='volume')
     async def _volume(self, ctx: commands.Context, *, volume: int):
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
 
-        if not ctx.voice_state.is_playing:
-            return await ctx.send('Não estou tocando nada nesse moemnto')
+            if not ctx.voice_state.is_playing:
+                return await ctx.reply('Não estou tocando nada nesse moemnto')
 
-        if 0 > volume > 100:
-            return await ctx.send('O volume deve estar entre 0 e 100')
+            if 0 > volume > 100:
+                return await ctx.reply('O volume deve estar entre 0 e 100')
 
-        ctx.voice_state.volume = volume / 100
-        await ctx.send('Volume do player está em {}%'.format(volume))
+            ctx.voice_state.volume = volume / 100
+            await ctx.reply('Volume do player está em {}%'.format(volume))
 
     @commands.command(name='now', aliases=['current', 'playing'])
     async def _now(self, ctx: commands.Context):
+            rand = random.randint(0,2)
+            if ctx.author.id == banip:
+                return
+            elif rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
 
-        await ctx.send(embed=ctx.voice_state.current.create_embed())
+            await ctx.reply(embed=ctx.voice_state.current.create_embed())
 
     @commands.command(name='pause', aliases = ['ps']) 
     async def _pause(self, ctx: commands.Context):
-        ctx.voice_state.voice.pause()
-        await ctx.message.add_reaction('⏯')
+            rand = random.randint(0,2)
+            if ctx.author.id == banip:
+                return
+            elif rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
 
-        if not ctx.voice_state.is_playing and ctx.voice_state.voice.is_playing():
-            await ctx.voice_state.voice.pause()
+            ctx.voice_state.voice.pause()
             await ctx.message.add_reaction('⏯')
+
+            if not ctx.voice_state.is_playing and ctx.voice_state.voice.is_playing():
+                await ctx.voice_state.voice.pause()
+                await ctx.message.add_reaction('⏯')
 
     @commands.command(name='resume')
     async def _resume(self, ctx: commands.Context):
-        ctx.voice_state.voice.resume()
-        await ctx.message.add_reaction('⏯')
+            rand = random.randint(0,2)
+            if ctx.author.id == banip:
+                return
+            elif rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
 
-        if not ctx.voice_state.is_playing and ctx.voice_state.voice.is_paused():
             ctx.voice_state.voice.resume()
             await ctx.message.add_reaction('⏯')
 
+            if not ctx.voice_state.is_playing and ctx.voice_state.voice.is_paused():
+                ctx.voice_state.voice.resume()
+                await ctx.message.add_reaction('⏯')
+
     @commands.command(name='stop')
     async def _stop(self, ctx: commands.Context):
+            rand = random.randint(0,2)
+            if ctx.author.id == banip:
+                return
+            elif rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
 
-        ctx.voice_state.songs.clear()
-        ctx.voice_state.voice.stop()
-        await ctx.message.add_reaction('⏹')
 
-        if not ctx.voice_state.is_playing:
+            ctx.voice_state.songs.clear()
             ctx.voice_state.voice.stop()
             await ctx.message.add_reaction('⏹')
 
+            if not ctx.voice_state.is_playing:
+                ctx.voice_state.voice.stop()
+                await ctx.message.add_reaction('⏹')
+
     @commands.command(name='skip', aliases = ['s'])
     async def _skip(self, ctx: commands.Context):
+            rand = random.randint(0,2)
+            if ctx.author.id == banip:
+                return
+            elif rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
 
-        if not ctx.voice_state.is_playing:
-            return await ctx.send('Não estou tocando nada agora')
+            if not ctx.voice_state.is_playing:
+                return await ctx.reply('Não estou tocando nada agora')
 
-        voter = ctx.message.author
-        if voter == ctx.voice_state.current.requester:
-            await ctx.message.add_reaction('⏭')
-            ctx.voice_state.skip()
-
-        elif voter.id not in ctx.voice_state.skip_votes:
-            ctx.voice_state.skip_votes.add(voter.id)
-            total_votes = len(ctx.voice_state.skip_votes)
-
-            if total_votes >= 3:
+            voter = ctx.message.author
+            if voter == ctx.voice_state.current.requester:
                 await ctx.message.add_reaction('⏭')
                 ctx.voice_state.skip()
-            else:
-                await ctx.send('Votos para pular **{}/3**'.format(total_votes))
 
-        else:
-            await ctx.send('Você já votou para pular essa musica')
+            elif voter.id not in ctx.voice_state.skip_votes:
+                ctx.voice_state.skip_votes.add(voter.id)
+                total_votes = len(ctx.voice_state.skip_votes)
+
+                if total_votes >= 3:
+                    await ctx.message.add_reaction('⏭')
+                    ctx.voice_state.skip()
+                else:
+                    await ctx.reply('Votos para pular **{}/3**'.format(total_votes))
+
+            else:
+                await ctx.reply('Você já votou para pular essa musica')
 
     @commands.command(name='queue', aliases = ['q'])
     async def _queue(self, ctx: commands.Context, *, page: int = 1):
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            if len(ctx.voice_state.songs) == 0:
+                return await ctx.reply('Empty queue.')
 
-        if len(ctx.voice_state.songs) == 0:
-            return await ctx.send('Empty queue.')
+            items_per_page = 10
+            pages = math.ceil(len(ctx.voice_state.songs) / items_per_page)
 
-        items_per_page = 10
-        pages = math.ceil(len(ctx.voice_state.songs) / items_per_page)
+            start = (page - 1) * items_per_page
+            end = start + items_per_page
 
-        start = (page - 1) * items_per_page
-        end = start + items_per_page
+            queue = ''
+            for i, song in enumerate(ctx.voice_state.songs[start:end], start=start):
+                queue += '`{0}.` [**{1.source.title}**]({1.source.url})\n'.format(i + 1, song)
 
-        queue = ''
-        for i, song in enumerate(ctx.voice_state.songs[start:end], start=start):
-            queue += '`{0}.` [**{1.source.title}**]({1.source.url})\n'.format(i + 1, song)
+            embed = (discord.Embed(description='**{} tracks:**\n\n{}'.format(len(ctx.voice_state.songs), queue))
+                    .set_footer(text='Vendo a pagina {}/{}'.format(page, pages)))
+            await ctx.reply(embed=embed)
 
-        embed = (discord.Embed(description='**{} tracks:**\n\n{}'.format(len(ctx.voice_state.songs), queue))
-                 .set_footer(text='Vendo a pagina {}/{}'.format(page, pages)))
-        await ctx.send(embed=embed)
-
-    @commands.command(name='shuffle')
-    async def _shuffle(self, ctx: commands.Context):
-        """Shuffles the queue."""
-
-        if len(ctx.voice_state.songs) == 0:
-            return await ctx.send('Lista Vazia.')
-
-        ctx.voice_state.songs.shuffle()
-        await ctx.message.add_reaction('✅')
-
-    @commands.command(name='remove')
+    @commands.command(name='remove', aliases = ['r'])
     async def _remove(self, ctx: commands.Context, index: int):
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
 
-        if len(ctx.voice_state.songs) == 0:
-            return await ctx.send('Lista vazia')
+            if len(ctx.voice_state.songs) == 0:
+                return await ctx.reply('Lista vazia')
 
-        ctx.voice_state.songs.remove(index - 1)
-        await ctx.message.add_reaction('✅')
+            ctx.voice_state.songs.remove(index - 1)
+            await ctx.message.add_reaction('✅')
 
     @commands.command(name='loop')
     async def _loop(self, ctx: commands.Context):
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
 
-        if not ctx.voice_state.is_playing:
-            return await ctx.send('Não estou tocando nada no momento')
+            if not ctx.voice_state.is_playing:
+                return await ctx.reply('Não estou tocando nada no momento')
 
-        ctx.voice_state.loop = not ctx.voice_state.loop
-        await ctx.message.add_reaction('✅')
+            ctx.voice_state.loop = not ctx.voice_state.loop
+            await ctx.message.add_reaction('✅')
 
-    @commands.command(name='play', aliasses = ['p'])
+    @commands.command(name='play', aliases = ['p'])
     async def _play(self, ctx: commands.Context, *, search: str = None):
-        if search == None:
-            search = 'Joji - SLOW DANCING IN THE DARK'
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+                
+            if search == None:
+                search = 'Joji - SLOW DANCING IN THE DARK'
 
-        if not ctx.voice_state.voice:
-            await ctx.invoke(self._join)
+            if not ctx.voice_state.voice:
+                ctx.voice_state.songs.clear()
 
-        async with ctx.typing():
-            try:
-                source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop)
-            except YTDLError as e:
-                await ctx.send('Ocorreu um erro: {}'.format(str(e)))
-            else:
-                song = Song(source)
+            if not ctx.voice_state.voice:
+                await ctx.invoke(self._join)
 
-                await ctx.voice_state.songs.put(song)
-                await ctx.send('Adicionado a lista {}'.format(str(source)))
+            async with ctx.typing():
+                try:
+                    source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop)
+                except YTDLError as e:
+                    await ctx.reply('Ocorreu um erro: {}'.format(str(e)))
+                else:
+                    song = Song(source)
+
+                    await ctx.voice_state.songs.put(song)
+                    await ctx.reply('Adicionado a lista {}'.format(str(source)))
 
     @_join.before_invoke
     @_play.before_invoke

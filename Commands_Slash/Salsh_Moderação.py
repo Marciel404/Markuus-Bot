@@ -1,5 +1,4 @@
-import asyncio
-import discord
+import asyncio, discord, random
 
 from discord.ext import commands
 from discord_slash import cog_ext, SlashContext
@@ -25,9 +24,12 @@ class _Mod(commands.Cog):
     )
     @commands.has_permissions(manage_channels = True)
     async def _setlogs(self, ctx, id = None):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
 
             server1 = {"_id": ctx.guild.id}
 
@@ -61,9 +63,12 @@ class _Mod(commands.Cog):
     )
     @commands.has_permissions(manage_channels = True)
     async def _setprefix(self, ctx, prefixo = None):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
             prefix.update_one({"_id": ctx.guild.id}, {"$set": {"prefix": prefixo}})
             await ctx.reply('Prefixo mudado para {}'.format(prefixo))
 
@@ -81,9 +86,12 @@ class _Mod(commands.Cog):
     )
     @commands.has_permissions(manage_channels = True)
     async def _autorole(self, ctx, cargo: discord.Role = None):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
             
             cargo2 = cargo.name
 
@@ -123,9 +131,12 @@ class _Mod(commands.Cog):
     @commands.bot_has_permissions(kick_members = True)
     @commands.has_permissions(kick_members = True)
     async def _kick(self, ctx:SlashContext, membro: discord.Member = None, *,motivo=None):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
 
             try:
                 log = logs.find_one({"_id": ctx.guild.id})
@@ -196,9 +207,12 @@ class _Mod(commands.Cog):
     @commands.bot_has_permissions(kick_members = True)
     @commands.has_permissions(kick_members = True)
     async def _Ban(self, ctx:SlashContext, membro: discord.Member = None, *,motivo=None):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
             
             try:
                 log = logs.find_one({"_id": ctx.guild.id})
@@ -286,9 +300,12 @@ class _Mod(commands.Cog):
     @commands.bot_has_permissions(manage_channels = True)
     @commands.has_permissions(manage_channels = True)
     async def _clear(self, ctx:SlashContext, quantidade = 0):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
             
             if quantidade > 1000:
                 await ctx.send('O limite maximo é de 1000 palavras')
@@ -322,9 +339,12 @@ class _Mod(commands.Cog):
     @commands.bot_has_permissions(ban_members = True)
     @commands.has_permissions(ban_members = True)
     async def _banid(self, ctx, membro: int, *,motivo=None):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
             
             try:
                 log = logs.find_one({"_id": ctx.guild.id})
@@ -399,9 +419,12 @@ class _Mod(commands.Cog):
     @commands.bot_has_permissions(ban_members = True)
     @commands.has_permissions(ban_members = True)
     async def _unban(self, ctx:SlashContext, id: int, *, razão = None):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
             
             try:
                 log = logs.find_one({"_id": ctx.guild.id})

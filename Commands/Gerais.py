@@ -3,7 +3,6 @@ import asyncio, random, time, discord, requests
 from discord.ext import commands
 from Outhers.Random import better_time, banip, punch, sad
 from Outhers.Economi import collection
-
 class CogName(commands.Cog):
     def __init__(self, bot:commands.Bot):
         self.bot = bot
@@ -11,9 +10,12 @@ class CogName(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def help(self, ctx):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
 
             help = discord.Embed(title = 'Meus comands',
             description = 
@@ -127,6 +129,7 @@ class CogName(commands.Cog):
             Pause - Pausa a musica tocando
             Skip - Pula para a proxima musica da Fila
             Stop - Para e tira o Markuus da call
+            Remove - Remove uma musica da lista de musicas
             ''',
             inline = False)
             Musica.set_thumbnail(url = self.bot.user.avatar_url)
@@ -165,11 +168,13 @@ class CogName(commands.Cog):
                 except asyncio.TimeoutError:
                     return
 
-
     @commands.command()
     async def hello(self, ctx):
+        rand = random.randint(0,2)
         if ctx.author.id == banip:
             return
+        elif rand == 1:
+            await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
         else:
             
             await ctx.reply('Hello, World {}'.format(ctx.author.name))
@@ -177,11 +182,14 @@ class CogName(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def aleatorio(self, ctx,numero = 0):
-        if ctx.author.id == banip:
-            return
-        elif numero == 0:
-            await ctx.reply('Você precisa escolher um numero')
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            elif numero == 0:
+                await ctx.reply('Você precisa escolher um numero')
+                return
             
             dado = random.randint(0,int(numero))
 
@@ -193,9 +201,12 @@ class CogName(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def ping(self, ctx):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
             
             p1 = discord.Embed(name = 'ping', 
             description = '**🏓Calculando ping.**',
@@ -231,18 +242,24 @@ class CogName(commands.Cog):
     @commands.command()
     @commands.cooldown(2, 5, commands.BucketType.user)
     async def servers(self, ctx):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
 
             await ctx.reply('Eu estou em ' + str(len(self.bot.guilds)) + ' servers!')
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def serverInfo(self, ctx):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
             
             ct = len(ctx.guild.text_channels)
             cv = len(ctx.guild.voice_channels)
@@ -285,9 +302,12 @@ class CogName(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def userinfo(self, ctx, membro: discord.Member = None):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
             
             if membro == None:
                 membro = ctx.author
@@ -323,9 +343,12 @@ class CogName(commands.Cog):
 
     @commands.command()
     async def avatar(self, ctx, membro: discord.Member = None):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
             
             if membro == None:
                 membro = ctx.author
@@ -339,9 +362,12 @@ class CogName(commands.Cog):
 
     @commands.command()
     async def invite(self, ctx):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
             
             e = discord.Embed(title = 'Invite', 
             description = 'Convide-me clicando [aqui](https://discord.com/api/oauth2/authorize?client_id=930619804593819699&permissions=8&scope=bot%20applications.commands)')
@@ -351,11 +377,15 @@ class CogName(commands.Cog):
     @commands.command()
     @commands.cooldown(1,5, commands.BucketType.user)
     async def hug(self, ctx, membro: discord.Member = None):
-        if ctx.author.id == banip:
-            return
-        elif membro == None:
-            await ctx.reply('Você precisa mencionar alguem')
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            elif membro == None:
+                await ctx.reply('Você precisa mencionar alguem')
+                return
+
 
             r = requests.get(
             'http://nekos.life/api/v2/img/hug')
@@ -386,11 +416,14 @@ class CogName(commands.Cog):
     @commands.command()
     @commands.cooldown(1,5, commands.BucketType.user)
     async def kiss(self, ctx, membro: discord.Member = None):
-        if ctx.author.id == banip:
-            return
-        elif membro == None:
-            await ctx.reply('Você precisa mencionar alguem')
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            elif membro == None:
+                await ctx.reply('Você precisa mencionar alguem')
+                return
 
             r = requests.get(
             'http://nekos.life/api/v2/img/kiss')
@@ -426,11 +459,14 @@ class CogName(commands.Cog):
     @commands.command()
     @commands.cooldown(1,5, commands.BucketType.user)
     async def slap(self, ctx, membro: discord.Member = None):
-        if ctx.author.id == banip:
-            return
-        elif membro == None:
-            await ctx.reply('Você precisa mencionar alguem')
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            elif membro == None:
+                await ctx.reply('Você precisa mencionar alguem')
+                return
 
             r = requests.get(
             'http://nekos.life/api/v2/img/slap')
@@ -463,11 +499,14 @@ class CogName(commands.Cog):
     @commands.command()
     @commands.cooldown(1,5, commands.BucketType.user)
     async def shoot(self, ctx, membro: discord.Member = None):
-        if ctx.author.id == banip:
-            return
-        elif membro == None:
-            await ctx.reply('Você precisa mencionar alguem')
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return   
+            elif membro == None:
+                await ctx.reply('Você precisa mencionar alguem')
+                return
 
             r = requests.get(
             'http://nekos.life/api/v2/img/shoot')
@@ -500,11 +539,14 @@ class CogName(commands.Cog):
     @commands.command()
     @commands.cooldown(1,5, commands.BucketType.user)
     async def punch(self, ctx, membro: discord.Member = None):
-        if ctx.author.id == banip:
-            return
-        elif membro == None:
-            await ctx.reply('Você precisa mencionar alguem')
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            elif membro == None:
+                await ctx.reply('Você precisa mencionar alguem')
+                return
             
             if membro.bot:
                 await ctx.reply('Você não faria isso com um pobre bot indefeso?')
@@ -536,9 +578,12 @@ class CogName(commands.Cog):
     @commands.command()
     @commands.cooldown(1,5, commands.BucketType.user)
     async def sad(self,ctx):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
             
             choice = random.choice(sad)
             embed = discord.Embed(title = 'Sad', description = f'{ctx.author.mention} está triste')
@@ -548,84 +593,101 @@ class CogName(commands.Cog):
 
     @commands.command()
     async def Vote(self, ctx):
-        for i in self.bot.guilds:
-            e1 = discord.utils.get(i.emojis, name='topgg')
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
             
-            server = '[Server Suport](https://discord.com/invite/xSs6xEjuvf)'
-            top = '[Top.gg](https://top.gg/bot/930619804593819699)'
-            inv = '[Invite](https://discord.com/api/oauth2/authorize?client_id=930619804593819699&permissions=8&scope=bot%20applications.commands)'
+            for i in self.bot.guilds:
+                e1 = discord.utils.get(i.emojis, name='topgg')
+            if ctx.author.id == banip:
+                return
+            else:
+                
+                server = '[Server Suport](https://discord.com/invite/xSs6xEjuvf)'
+                top = '[Top.gg](https://top.gg/bot/930619804593819699)'
+                inv = '[Invite](https://discord.com/api/oauth2/authorize?client_id=930619804593819699&permissions=8&scope=bot%20applications.commands)'
 
-            topgg = discord.Embed(title = 'Vote', 
-            description = f'''Muito obrigado por escolher votar em mim {ctx.author.mention}
-            isso me ajuda bastante e voce sabia que eu tbm tenho 
-            um server de suporte, está tudo aqui a baixo''')
-            topgg.add_field(name = f':grey_question:Está com alguma dúvidas? Entre no meu Servidor de Suporte!', value = server, inline = False)
-            topgg.add_field(name = f'{e1}Quer me ajudar a crescer? Aqui está o link do Top.gg', 
-            value = top, inline = False)
-            topgg.add_field(name = f':partying_face:Querendo me convidar? Aqui está o link', 
-            value = inv, inline = False)
-            topgg.set_thumbnail(url = self.bot.user.avatar_url)
-            await ctx.reply(embed = topgg)
+                topgg = discord.Embed(title = 'Vote', 
+                description = f'''Muito obrigado por escolher votar em mim {ctx.author.mention}
+                isso me ajuda bastante e voce sabia que eu tbm tenho 
+                um server de suporte, está tudo aqui a baixo''')
+                topgg.add_field(name = f':grey_question:Está com alguma dúvidas? Entre no meu Servidor de Suporte!', value = server, inline = False)
+                topgg.add_field(name = f'{e1}Quer me ajudar a crescer? Aqui está o link do Top.gg', 
+                value = top, inline = False)
+                topgg.add_field(name = f':partying_face:Querendo me convidar? Aqui está o link', 
+                value = inv, inline = False)
+                topgg.set_thumbnail(url = self.bot.user.avatar_url)
+                await ctx.reply(embed = topgg)
 
     @commands.command()
     @commands.cooldown(1,5, commands.BucketType.user)
     async def donate(self, ctx):
-        embed = discord.Embed(title = 'Donate')
-        embed.add_field(
-        name = 'Metodos',
-        value = 
-        '''
-        Pix: rafaelucas@protonmail.com(Brasil)
-        Paypal: rafaelucas@protonmail.com
-        ''')
-        await ctx.reply(embed = embed)
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
+            embed = discord.Embed(title = 'Donate')
+            embed.add_field(
+            name = 'Metodos',
+            value = 
+            '''
+            Pix: rafaelucas@protonmail.com(Brasil)
+            Paypal: rafaelucas@protonmail.com
+            ''')
+            await ctx.reply(embed = embed)
 
     @commands.command()
     @commands.cooldown(1,5,commands.BucketType.user)
     async def Lembrete(self, ctx, tempo  = None, *, lembrete = None):
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
 
-        if lembrete == None:
-            ctx.reply('Você precisa escrever a descrição do lembrete')
-        elif tempo == None:
-            ctx.reply('Você precisa escolher o tempo do lembrete')
+            if lembrete == None:
+                ctx.reply('Você precisa escrever a descrição do lembrete')
+            elif tempo == None:
+                ctx.reply('Você precisa escolher o tempo do lembrete')
 
-        embed = discord.Embed(color=self.bot.user.color)
-        seconds = 0
-        if lembrete is None:
-            embed.add_field(name='Erro', value='Você precisa definir o lembrete') # Error message
-        if tempo.lower().endswith("d"):
-            seconds += int(tempo[:-1]) * 60 * 60 * 24
-            counter = f"{seconds // 60 // 60 // 24} dias"
-        if tempo.lower().endswith("h"):
-            seconds += int(tempo[:-1]) * 60 * 60
-            counter = f"{seconds // 60 // 60} horas"
-        elif tempo.lower().endswith("m"):
-            seconds += int(tempo[:-1]) * 60
-            counter = f"{seconds // 60} minutos"
-        elif tempo.lower().endswith("s"):
-            seconds += int(tempo[:-1])
-            counter = f"{seconds} segundos"
-        if seconds == 0:
-            embed.add_field(name='Erro',
-                            value='A duração precisa ser maior que 0 Segundos')
-        elif seconds > 7776000:
-            embed.add_field(
-            name='Erro', 
-            value=
-            '''
-            A duração desse lembrete é muito longo
-            Limite de dias é de 90 dias
-            '''
-            )
-        else:
-            await ctx.reply('Okay, Eu irei te lembrar de {} daqui a {}'.format(lembrete, counter))
-            await asyncio.sleep(seconds)
-            await ctx.reply('Ola {1}, estou passando aqui para te lembrar de "{0}" como você me pediu'.format(lembrete, ctx.author.mention))
-            return
-        await ctx.reply(embed=embed)
+            embed = discord.Embed(color=self.bot.user.color)
+            seconds = 0
+            if lembrete is None:
+                embed.add_field(name='Erro', value='Você precisa definir o lembrete') # Error message
+            if tempo.lower().endswith("d"):
+                seconds += int(tempo[:-1]) * 60 * 60 * 24
+                counter = f"{seconds // 60 // 60 // 24} dias"
+            if tempo.lower().endswith("h"):
+                seconds += int(tempo[:-1]) * 60 * 60
+                counter = f"{seconds // 60 // 60} horas"
+            elif tempo.lower().endswith("m"):
+                seconds += int(tempo[:-1]) * 60
+                counter = f"{seconds // 60} minutos"
+            elif tempo.lower().endswith("s"):
+                seconds += int(tempo[:-1])
+                counter = f"{seconds} segundos"
+            if seconds == 0:
+                embed.add_field(name='Erro',
+                                value='A duração precisa ser maior que 0 Segundos')
+            elif seconds > 7776000:
+                embed.add_field(
+                name='Erro', 
+                value=
+                '''
+                A duração desse lembrete é muito longo
+                Limite de dias é de 90 dias
+                '''
+                )
+            else:
+                await ctx.reply('Okay, Eu irei te lembrar de {} daqui a {}'.format(lembrete, counter))
+                await asyncio.sleep(seconds)
+                await ctx.reply('Ola {1}, estou passando aqui para te lembrar de "{0}" como você me pediu'.format(lembrete, ctx.author.mention))
+                return
+            await ctx.reply(embed=embed)
 
 
     @hello.error

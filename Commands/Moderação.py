@@ -1,5 +1,4 @@
-import discord
-import asyncio
+import discord,asyncio,random
 
 from discord.ext import commands
 from Outhers.Random import better_time, banip
@@ -12,9 +11,11 @@ class CogName(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_channels = True)
     async def setlogs(self, ctx, id = None):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
 
             server1 = {"_id": ctx.guild.id}
 
@@ -37,17 +38,23 @@ class CogName(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_channels = True)
     async def setprefix(self, ctx, prefixo = None):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+
             prefix.update_one({"_id": ctx.guild.id}, {"$set": {"prefix": prefixo}})
             await ctx.reply('Prefixo mudado para {}'.format(prefixo))
 
     @commands.command()
     @commands.has_permissions(manage_channels = True)
     async def autorole(self, ctx, cargo: discord.Role = None):
+        rand = random.randint(0,2)
         if ctx.author.id == banip:
             return
+        elif rand == 1:
+            await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
         else:
             
             cargo2 = cargo.name
@@ -56,7 +63,6 @@ class CogName(commands.Cog):
                 autorule.delete_one({"_id" : ctx.guild.id})
                 await ctx.reply('Auto Role desativado')
                 
-
             server = {"_id": ctx.guild.id, "Nome": ctx.guild.name, "Role": cargo2}
             myquery = { "_id": ctx.guild.id}   
             if (autorule.count_documents(myquery) == 0):
@@ -71,9 +77,11 @@ class CogName(commands.Cog):
     @commands.bot_has_permissions(kick_members = True)
     @commands.has_permissions(kick_members = True)
     async def kick(self, ctx, membro: discord.Member = None, *,motivo=None):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
 
             try:
                 log = logs.find_one({"_id": ctx.guild.id})
@@ -127,9 +135,11 @@ class CogName(commands.Cog):
     @commands.bot_has_permissions(kick_members = True)
     @commands.has_permissions(kick_members = True)
     async def Ban(self, ctx, membro: discord.Member = None, *,motivo=None):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
             
             try:
                 log = logs.find_one({"_id": ctx.guild.id})
@@ -181,10 +191,7 @@ class CogName(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(manage_channels = True)
     async def say(self, ctx, *, msg = None):
-        if ctx.author.id == banip:
-            return
-        else:
-            
+
             if msg == None:
                 await ctx.reply('Você precisa falar algo')
             else:
@@ -195,10 +202,12 @@ class CogName(commands.Cog):
     @commands.bot_has_permissions(manage_channels = True)
     @commands.has_permissions(manage_channels = True)
     async def clear(self, ctx, quantidade = 0):
-        if ctx.author.id == banip:
-            return
-        else:
-            
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+                
             if quantidade > 1000:
                 await ctx.reply('O limite maximo é de 1000 palavras')
                 return
@@ -213,10 +222,12 @@ class CogName(commands.Cog):
     @commands.bot_has_permissions(ban_members = True)
     @commands.has_permissions(ban_members = True)
     async def banid(self, ctx, membro: int, *,motivo=None):
-        if ctx.author.id == banip:
-            return
-        else:
-            
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+                
             try:
                 log = logs.find_one({"_id": ctx.guild.id})
                 log2 = log["canal"]
@@ -273,9 +284,11 @@ class CogName(commands.Cog):
     @commands.bot_has_permissions(ban_members = True)
     @commands.has_permissions(ban_members = True)
     async def unban(self, ctx, id: int, *, razão = None):
-        if ctx.author.id == banip:
-            return
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
             
             try:
                 log = logs.find_one({"_id": ctx.guild.id})

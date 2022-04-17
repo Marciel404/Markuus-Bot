@@ -28,6 +28,7 @@ class events(commands.Cog):
     async def on_message(self, message):
 
         prefixo = prefix.find_one({"_id": message.guild.id})
+        pre= prefixo['prefix']
 
         if message.author == self.bot.user: return
 
@@ -41,7 +42,7 @@ class events(commands.Cog):
             if ' ' in message.content:
                 return
             else:
-                await message.reply('Meu prefixo nesse servidor é {0} , use {0}help para saber meus comandos'.format(prefixo))
+                await message.reply('Meu prefixo nesse servidor é {0} , use {0}help para saber meus comandos'.format(pre))
         elif message.content:
 
             await set_prefix(message.guild, '==')

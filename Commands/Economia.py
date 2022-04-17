@@ -1,5 +1,4 @@
-import random
-import discord
+import random, discord
 
 from discord.ext import commands
 from Outhers.Economi import update_bank, update_inv, open_account, open_inv, collection, collection2, reload_inv, shop, crafts
@@ -12,9 +11,12 @@ class Economia(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def edinhos(self, ctx, membro: discord.Member = None):
-        if ctx.author.id == banip:
-            return
-        else: 
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
 
             if membro == None:
                 membro = ctx.author
@@ -33,13 +35,17 @@ class Economia(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def Transferir(self, ctx, membro: discord.Member, edinhos = None):
-        if ctx.author.id == banip:
-            return
-        elif membro == None:
-            await ctx.reply('Você precisa mencionar alguem')
-        elif edinhos == None:
-            await ctx.reply('Você precisa escolher a quantidade para transferir')
-        else:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            elif membro == None:
+                await ctx.reply('Você precisa mencionar alguem')
+                return
+            elif edinhos == None:
+                await ctx.reply('Você precisa escolher a quantidade para transferir')
+                return
             await open_account(ctx.author)
             await open_account(membro)
             bal = collection.find_one({"_id": ctx.author.id})
@@ -67,9 +73,12 @@ class Economia(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def loteria(self, ctx, edinhos = None):
-        if ctx.author.id == banip:
-            return
-        else: 
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
             await open_account(ctx.author)
 
             if edinhos == None:
@@ -109,9 +118,12 @@ class Economia(commands.Cog):
     @commands.command(aliases = ['ccap'])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def Caraoucoroaap(self, ctx, edinhos = int, escolha = None):
-        if ctx.author.id == banip:
-            return
-        else: 
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
             bal = collection.find_one({"_id": ctx.author.id})
 
             dindin = int(edinhos)
@@ -135,175 +147,198 @@ class Economia(commands.Cog):
     @commands.command()
     @commands.cooldown(1,5, commands.BucketType.user)
     async def edinhostop(self, ctx):
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+                
 
-        rankings = collection.find().sort("Edinhos",-1)
-        i=1
-        embed = discord.Embed(title = f"***Top 5 mais ricos***")
-        for x in rankings:
-            user_xp = x["Edinhos"]
+            rankings = collection.find().sort("Edinhos",-1)
+            i=1
+            embed = discord.Embed(title = f"***Top 5 mais ricos***")
+            for x in rankings:
+                user_xp = x["Edinhos"]
 
-            embed.add_field(name=f"{i}: {x['Nome']}", value=f"{user_xp}", inline=False)
-            if i == 5:
-                break
-            else:
-                i += 1
-        embed.set_footer(text=f"{ctx.guild}", icon_url=f"{ctx.guild.icon_url}")
-        await ctx.reply(embed=embed)
+                embed.add_field(name=f"{i}: {x['Nome']}", value=f"{user_xp}", inline=False)
+                if i == 5:
+                    break
+                else:
+                    i += 1
+            embed.set_footer(text=f"{ctx.guild}", icon_url=f"{ctx.guild.icon_url}")
+            await ctx.reply(embed=embed)
 
     @commands.command(aliases = ['inv'])
     @commands.cooldown(1,5, commands.BucketType.user)
     async def inventario(self, ctx):
-        await open_inv(ctx.author)
-        await reload_inv(ctx.author)
-        inv = collection2.find_one({"_id": ctx.author.id})
+            rand = random.randint(0,2)
+            if rand == 1:
+                    await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+                
+            await open_inv(ctx.author)
+            await reload_inv(ctx.author)
+            inv = collection2.find_one({"_id": ctx.author.id})
 
-        embed = discord.Embed(
-        title = 'Inventario',
-        description = 
-        f'''
-        Picareta ferro {inv['picareta ferro']}
-        Picareta de ouro {inv['picareta ouro']}
-        Picareta de diamante {inv['picareta diamante']}
-        Carro {inv['carro']}
-        Arma {inv['arma']}
-        Diamante {inv['diamante']}
-        Ouro {inv['ouro']}
-        Anel de casamento {inv['anel casamento']}
-        Ferro {inv['ferro']}
-        Madeira {inv['madeira']}
-        Computador {inv['computador']}
-        ''')
-        await ctx.reply(embed = embed)
+            embed = discord.Embed(
+            title = 'Inventario',
+            description = 
+            f'''
+            Picareta ferro {inv['picareta ferro']}
+            Picareta de ouro {inv['picareta ouro']}
+            Picareta de diamante {inv['picareta diamante']}
+            Carro {inv['carro']}
+            Arma {inv['arma']}
+            Diamante {inv['diamante']}
+            Ouro {inv['ouro']}
+            Anel de casamento {inv['anel casamento']}
+            Ferro {inv['ferro']}
+            Madeira {inv['madeira']}
+            Computador {inv['computador']}
+            ''')
+            await ctx.reply(embed = embed)
 
     @commands.command(aliases = ['mercado'])
     @commands.cooldown(1,5, commands.BucketType.user)
     async def Shop(self, ctx, opção = None, quantidade = int, *,item = None):
-        embed = discord.Embed(title = 'Mercado')
-
-        await open_inv(ctx.author)
-
-        if opção == None:
-            for i in shop:
-                name = i["Nome"]
-                compra = i["compra"]
-                venda = i["Venda"]
-                embed.add_field(name = name, value = f'Compra {compra}\n Venda {venda}')
-
-            await ctx.reply(embed = embed)
-        elif opção == 'Buy':
-            item_name = item.capitalize()
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
+            embed = discord.Embed(title = 'Mercado')
 
             await open_inv(ctx.author)
 
-            for it in shop:
-                name = it["Nome"]
-                if name == item_name:
-                    price = it["compra"]
-                    break
+            if opção == None:
+                for i in shop:
+                    name = i["Nome"]
+                    compra = i["compra"]
+                    venda = i["Venda"]
+                    embed.add_field(name = name, value = f'Compra {compra}\n Venda {venda}')
 
-            cost = price*quantidade
+                await ctx.reply(embed = embed)
+            elif opção == 'Buy':
+                item_name = item.capitalize()
 
-            bal = collection.find_one({"_id": ctx.author.id})
+                await open_inv(ctx.author)
 
-            if bal['Edinhos'] < cost:
-                await ctx.reply('Você não tem edinhos suficientes')
-            else:
-            
-                q = None
-                if quantidade == 1:
-                    q = 'unidade'
-                elif quantidade > 1:
-                    q = 'unidades'
+                for it in shop:
+                    name = it["Nome"]
+                    if name == item_name:
+                        price = it["compra"]
+                        break
 
-                await ctx.reply(f'Você comprou {quantidade} {q} de {item} por {cost} edinhos')
-                await update_bank(ctx.author, - cost)
-                await update_inv(ctx.author, item_name, quantidade)
-        elif opção == 'Sell':
-            item_name = item.capitalize()
-            item_name2 = item.lower()
+                cost = price*quantidade
 
-            await open_inv(ctx.author)
+                bal = collection.find_one({"_id": ctx.author.id})
 
-            for it in shop:
-                name = it["Nome"]
-                if name == item_name:
-                    price = it["Venda"]
-                    break
+                if bal['Edinhos'] < cost:
+                    await ctx.reply('Você não tem edinhos suficientes')
+                else:
+                
+                    q = None
+                    if quantidade == 1:
+                        q = 'unidade'
+                    elif quantidade > 1:
+                        q = 'unidades'
 
-            cost = price*quantidade
+                    await ctx.reply(f'Você comprou {quantidade} {q} de {item} por {cost} edinhos')
+                    await update_bank(ctx.author, - cost)
+                    await update_inv(ctx.author, item_name, quantidade)
+            elif opção == 'Sell':
+                item_name = item.capitalize()
+                item_name2 = item.lower()
 
-            bal = collection2.find_one({"_id": ctx.author.id})
+                await open_inv(ctx.author)
 
-            if bal[f'{item_name2}'] < 1:
-                await ctx.reply('Você não tem esse item para vender')
-            else:
-            
-                q = None
-                if quantidade == 1:
-                    q = 'unidade'
-                elif quantidade > 1:
-                    q = 'unidades'
+                for it in shop:
+                    name = it["Nome"]
+                    if name == item_name:
+                        price = it["Venda"]
+                        break
 
-                await ctx.reply(f'Você vendeu {quantidade} {q} de {item} por {cost} edinhos')
-                await update_bank(ctx.author, + cost)
-                await update_inv(ctx.author, item_name, - quantidade)
+                cost = price*quantidade
+
+                bal = collection2.find_one({"_id": ctx.author.id})
+
+                if bal[f'{item_name2}'] < 1:
+                    await ctx.reply('Você não tem esse item para vender')
+                else:
+                
+                    q = None
+                    if quantidade == 1:
+                        q = 'unidade'
+                    elif quantidade > 1:
+                        q = 'unidades'
+
+                    await ctx.reply(f'Você vendeu {quantidade} {q} de {item} por {cost} edinhos')
+                    await update_bank(ctx.author, + cost)
+                    await update_inv(ctx.author, item_name, - quantidade)
         
     @commands.command(aliases = ['craftar'])
     @commands.cooldown(1,5, commands.BucketType.user)
     async def craft(self, ctx, opção = None, *, craft = None):
-
-        if opção == None:
-            e = discord.Embed(title = 'Crafts')
-
-            for i in crafts:
-                name = i["Nome"]
-                compra = i["1"]
-                venda = i["2"]
-                e.add_field(name = name, value = f' {compra}\n {venda}')
-
-            await ctx.reply(embed = e)
-        elif opção == 'craftar':
-            item_ = craft.lower()
-            b1 = collection2.find_one({"_id": ctx.author.id})
-
-            if item_ == 'picareta diamante':
-                if b1['madeira'] < 1:
-                    await ctx.reply('Você não tem madeira suficiente')
-                    return
-                elif b1['diamante'] < 3:
-                    await ctx.reply('Você não tem diamante suficiente')
-                    return
-                else:
-                    await update_inv(ctx.author, 'madeira', - 1)
-                    await update_inv(ctx.author, 'diamante', -3)
-                    await update_inv(ctx.author, 'picareta diamante', 1)
-                    await ctx.reply('Picareta diamante craftada com sucesso')
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
             
-            elif item_ == 'picareta ferro':
-                if b1['madeira'] < 1:
-                    await ctx.reply('Você não tem madeira suficiente')
-                    return
-                elif b1['ferro'] < 3:
-                    await ctx.reply('Você não tem ferro suficiente')
-                    return
-                else:
-                    await update_inv(ctx.author, 'madeira', - 1)
-                    await update_inv(ctx.author, 'ferro', -3)
-                    await update_inv(ctx.author, 'picareta ferro', 1)
-                    await ctx.reply('Picareta ferro craftada com sucesso')
-        
-            elif item_ == 'picareta ouro':
-                if b1['madeira'] < 1:
-                    await ctx.reply('Você não tem madeira suficiente')
-                    return
-                elif b1['ouro'] < 3:
-                    await ctx.reply('Você não tem ouro suficiente')
-                    return
-                else:
-                    await update_inv(ctx.author, 'madeira', - 1)
-                    await update_inv(ctx.author, 'ouro', -3)
-                    await update_inv(ctx.author, 'picareta ouro', 1)
-                    await ctx.reply('Picareta ouro craftada com sucesso')
+            if opção == None:
+                e = discord.Embed(title = 'Crafts')
+
+                for i in crafts:
+                    name = i["Nome"]
+                    compra = i["1"]
+                    venda = i["2"]
+                    e.add_field(name = name, value = f' {compra}\n {venda}')
+
+                await ctx.reply(embed = e)
+            elif opção == 'craftar':
+                item_ = craft.lower()
+                b1 = collection2.find_one({"_id": ctx.author.id})
+
+                if item_ == 'picareta diamante':
+                    if b1['madeira'] < 1:
+                        await ctx.reply('Você não tem madeira suficiente')
+                        return
+                    elif b1['diamante'] < 3:
+                        await ctx.reply('Você não tem diamante suficiente')
+                        return
+                    else:
+                        await update_inv(ctx.author, 'madeira', - 1)
+                        await update_inv(ctx.author, 'diamante', -3)
+                        await update_inv(ctx.author, 'picareta diamante', 1)
+                        await ctx.reply('Picareta diamante craftada com sucesso')
+                
+                elif item_ == 'picareta ferro':
+                    if b1['madeira'] < 1:
+                        await ctx.reply('Você não tem madeira suficiente')
+                        return
+                    elif b1['ferro'] < 3:
+                        await ctx.reply('Você não tem ferro suficiente')
+                        return
+                    else:
+                        await update_inv(ctx.author, 'madeira', - 1)
+                        await update_inv(ctx.author, 'ferro', -3)
+                        await update_inv(ctx.author, 'picareta ferro', 1)
+                        await ctx.reply('Picareta ferro craftada com sucesso')
+            
+                elif item_ == 'picareta ouro':
+                    if b1['madeira'] < 1:
+                        await ctx.reply('Você não tem madeira suficiente')
+                        return
+                    elif b1['ouro'] < 3:
+                        await ctx.reply('Você não tem ouro suficiente')
+                        return
+                    else:
+                        await update_inv(ctx.author, 'madeira', - 1)
+                        await update_inv(ctx.author, 'ouro', -3)
+                        await update_inv(ctx.author, 'picareta ouro', 1)
+                        await ctx.reply('Picareta ouro craftada com sucesso')
 
     @edinhos.error
     async def beg_error(self, ctx: commands.Context, error):

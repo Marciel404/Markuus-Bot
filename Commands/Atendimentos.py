@@ -1,8 +1,7 @@
-import discord
+import discord,random
 
 from discord.ext import commands
 from Outhers.Random import better_time, banip
-
 
 class Atendimento(commands.Cog):
     def __init__(self, bot:commands.Bot):
@@ -10,74 +9,90 @@ class Atendimento(commands.Cog):
 
     @commands.command()
     async def ticket(self, ctx):
-        if ctx.author.id == banip:
-            return
-
-        guild = ctx.guild
-
-        Chat = discord.utils.get(guild.channels, name=f'ticket-{ctx.author.id}')
-
-        if Chat is None:
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
 
             guild = ctx.guild
-            embed = discord.Embed(
-                    title = 'Ticket criado com sucesso',
-                    description = 'Agora só esperar a resposta',
-                    color = 0
-                )
 
-            embed.set_footer(text=f'Ticket de {ctx.author.name}')
+            Chat = discord.utils.get(guild.channels, name=f'ticket-{ctx.author.id}')
 
-            msg = await ctx.send(embed=embed)
-            await msg.add_reaction("📩")
+            if Chat is None:
 
-            ticket = f'ticket-{ctx.author.id}'
-            member = ctx.author
-            overwrites = {
-                guild.default_role: discord.PermissionOverwrite(read_messages=False),
-                member: discord.PermissionOverwrite(read_messages=True),
-                }
+                guild = ctx.guild
+                embed = discord.Embed(
+                        title = 'Ticket criado com sucesso',
+                        description = 'Agora só esperar a resposta',
+                        color = 0
+                    )
 
-            channel = await guild.create_text_channel(name=ticket, overwrites = overwrites)
-            await channel.send(ctx.author.mention)
+                embed.set_footer(text=f'Ticket de {ctx.author.name}')
 
-        else:
-            await ctx.reply('Ticket já existente, encerre o ultimo para criar outro')
+                msg = await ctx.reply(embed=embed)
+                await msg.add_reaction("📩")
+
+                ticket = f'ticket-{ctx.author.id}'
+                member = ctx.author
+                overwrites = {
+                    guild.default_role: discord.PermissionOverwrite(read_messages=False),
+                    member: discord.PermissionOverwrite(read_messages=True),
+                    }
+
+                channel = await guild.create_text_channel(name=ticket, overwrites = overwrites)
+                await channel.send(ctx.author.mention)
+
+            else:
+                await ctx.reply('Ticket já existente, encerre o ultimo para criar outro')
 
     @commands.command()
     async def ft(self, ctx):
-        if ctx.author.id == banip:
-            return
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
 
-        if f'ticket-{ctx.author.id}' in ctx.channel.name:
-            await ctx.channel.delete()
-        elif f'ticket-' in ctx.channel.name and ctx.author.guild_permissions.manage_channels:
-            await ctx.channel.delete()
-        else:
-            await ctx.reply('Esse não é um chat  de ticket')
+            if f'ticket-{ctx.author.id}' in ctx.channel.name:
+                await ctx.channel.delete()
+            elif f'ticket-' in ctx.channel.name and ctx.author.guild_permissions.manage_channels:
+                await ctx.channel.delete()
+            else:
+                await ctx.reply('Esse não é um chat  de ticket')
         
 
     @commands.command()
     async def adc(self, ctx, id: discord.Member):
-        if ctx.author.id == banip:
-            return
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
 
-        if f'ticket-{ctx.author.id}' in ctx.channel.name or ctx.author.guild_permissions.manage_channels:
-            await ctx.channel.set_permissions(id, read_messages=True)
-            await ctx.reply(f'{id.mention} adicionado')
-        elif ctx.channel.name != f'ticket-{ctx.author.id}':
-            await ctx.send('Este ticket não te pertence ou você não pode gerenciar canais')
+            if f'ticket-{ctx.author.id}' in ctx.channel.name or ctx.author.guild_permissions.manage_channels:
+                await ctx.channel.set_permissions(id, read_messages=True)
+                await ctx.reply(f'{id.mention} adicionado')
+            elif ctx.channel.name != f'ticket-{ctx.author.id}':
+                await ctx.reply('Este ticket não te pertence ou você não pode gerenciar canais')
 
     @commands.command()
     async def rmv(self, ctx, membro: discord.Member):
-        if ctx.author.id == banip:
-            return
+            rand = random.randint(0,2)
+            if rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            elif ctx.author.id == banip:
+                return
+            
 
-        if f'ticket-{ctx.author.id}' in ctx.channel.name or ctx.author.guild_permissions.manage_channels:
-            await ctx.channel.set_permissions(membro, read_messages=False)
-            await ctx.reply(f'{membro.mention}')
-        elif ctx.channel.name != f'ticket-{ctx.author.id}':
-            await ctx.send('Este ticket não te pertence ou você não pode gerenciar canais')
+            if f'ticket-{ctx.author.id}' in ctx.channel.name or ctx.author.guild_permissions.manage_channels:
+                await ctx.channel.set_permissions(membro, read_messages=False)
+                await ctx.reply(f'{membro.mention}')
+            elif ctx.channel.name != f'ticket-{ctx.author.id}':
+                await ctx.reply('Este ticket não te pertence ou você não pode gerenciar canais')
 
     @ticket.error
     async def beg_error(self, ctx: commands.Context, error):
