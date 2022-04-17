@@ -49,17 +49,4 @@ for filename in os.listdir('./Outhers'):
     if filename.endswith('.py'):
         client.load_extension(f'Outhers.{filename[:-3]}')
 
-@client.command()
-async def t1(ctx, thx):
-        if ctx.author.id != IdS:
-            return
-        else:
-            e = discord.Embed()
-            r = requests.get(
-                    f'http://nekos.life/api/v2/img/{thx}')
-            res = r.json()
-
-            e.set_image(url=res['url'])
-            await ctx.send(embed = e)
-
 client.run(token)
