@@ -55,6 +55,10 @@ class YTDLSource(discord.PCMVolumeTransformer):
         self.likes = data.get('like_count')
         self.dislikes = data.get('dislike_count')
         self.stream_url = data.get('url')
+        if self.disliskes == None:
+            self.dislikes = 'Não informado'
+        if self.likes == None:
+            self.likes = 'Não informado'
 
     def __str__(self):
         return '**{0.title}** by **{0.uploader}**'.format(self)
