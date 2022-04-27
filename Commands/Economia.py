@@ -185,17 +185,17 @@ class Economia(commands.Cog):
             title = 'Inventario',
             description = 
             f'''
-            Picareta ferro {inv['picareta ferro']}
-            Picareta de ouro {inv['picareta ouro']}
-            Picareta de diamante {inv['picareta diamante']}
-            Carro {inv['carro']}
-            Arma {inv['arma']}
-            Diamante {inv['diamante']}
-            Ouro {inv['ouro']}
-            Anel de casamento {inv['anel casamento']}
-            Ferro {inv['ferro']}
-            Madeira {inv['madeira']}
-            Computador {inv['computador']}
+Picareta ferro {inv['picareta ferro']}
+Picareta de ouro {inv['picareta ouro']}
+Picareta de diamante {inv['picareta diamante']}
+Carro {inv['carro']}
+Arma {inv['arma']}
+Diamante {inv['diamante']}
+Ouro {inv['ouro']}
+Anel de casamento {inv['anel casamento']}
+Ferro {inv['ferro']}
+Madeira {inv['madeira']}
+Computador {inv['computador']}
             ''')
             await ctx.reply(embed = embed)
 
