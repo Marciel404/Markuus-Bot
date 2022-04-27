@@ -195,7 +195,8 @@ class CogName(commands.Cog):
             if msg == None:
                 await ctx.reply('Você precisa falar algo')
             else:
-                await ctx.reply(f'{msg} \n\nFalado por {ctx.author.mention}')
+                await ctx.message.delete()
+                await ctx.send(f'{msg} \n\nFalado por {ctx.author.mention}')
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
