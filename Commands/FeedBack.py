@@ -7,7 +7,19 @@ class CogName(commands.Cog):
     def __init__(self, bot:commands.Bot):
         self.bot = bot
 
+    @commands.command()
+    async def RS(self, ctx, id, *,msg):
 
+        if ctx.author.id != IdS:
+            return
+
+        user = self.bot.get_user(int(id))
+        try:
+
+            await user.send(f'{msg}')
+        except Exception:
+            await ctx.send('Não consegui mandar mensagem para esse membro')
+        
     @commands.command()
     @commands.cooldown(1,5, commands.BucketType.user)
     async def sugest(self, ctx, *, sugestão = None):
