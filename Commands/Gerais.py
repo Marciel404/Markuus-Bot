@@ -599,9 +599,8 @@ API: {round((end_time - start_time) * 1000)}ms''',
             elif ctx.author.id == banip:
                 return
             
-            for i in self.bot.guilds:
-                e1 = discord.utils.get(i.emojis, name='topgg')
-
+            e1 = self.bot.get_emoji(971189865532244028)
+            
             server = '[Server Suport](https://discord.com/invite/xSs6xEjuvf)'
             top = '[Top.gg](https://top.gg/bot/930619804593819699)'
             inv = '[Invite](https://discord.com/api/oauth2/authorize?client_id=930619804593819699&permissions=8&scope=bot%20applications.commands)'
