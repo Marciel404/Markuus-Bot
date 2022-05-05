@@ -1,9 +1,10 @@
-import asyncio, random, time, discord, requests
+import asyncio, random, time, discord, requests, platform
 
 from discord.ext import commands
 from Outhers.Random import better_time, banip, punch, sad
-from Outhers.Economi import collection
-class CogName(commands.Cog):
+from Outhers.Economi import collection, open_account
+
+class Gerais(commands.Cog):
     def __init__(self, bot:commands.Bot):
         self.bot = bot
 
@@ -12,7 +13,7 @@ class CogName(commands.Cog):
     async def help(self, ctx):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
@@ -20,10 +21,10 @@ class CogName(commands.Cog):
             help = discord.Embed(title = 'Meus comands',
             description = 
             '''
-            0️⃣ | Menu.....1️⃣ | Moderação
-            2️⃣ | Gerais....3️⃣ | Economia
-            4️⃣ | Suporte.5️⃣ | Imagens
-            6️⃣ | Musica
+0️⃣ | Menu.....1️⃣ | Moderação
+2️⃣ | Gerais....3️⃣ | Economia
+4️⃣ | Suporte.5️⃣ | Imagens
+6️⃣ | Musica
             '''
             )
             help.set_thumbnail(url = self.bot.user.avatar_url)
@@ -34,14 +35,16 @@ class CogName(commands.Cog):
             name = 'Moderação',
             value = 
             '''
-            Ban - (Ban members) - Bane membros no seu servidor
-            BanId - (Ban Members) - Bane uma pessoa que não está no seu server pelo id
-            Unban - (Ban Members) - Desbane um membro no seu servr
-            Kick - (Kick Members) - Expulsa uma pessoa do seu server
-            Clear - (Manage channels) - Limpa o chat do seu server
-            Say - (Administrator) - Fala algo no server
-            SetLogs - (Manage_chnnels) - Seta o canal de logs do bot
-            AutoRole - (Manage_chnnels) - Seta um cargo para Autorole
+Ban - (Ban members) - Bane membros no seu servidor
+BanId - (Ban Members) - Bane uma pessoa que não está no seu server pelo id
+Unban - (Ban Members) - Desbane um membro no seu servr
+Kick - (Kick Members) - Expulsa uma pessoa do seu server
+Clear - (Manage channels) - Limpa o chat do seu server
+Say - (Administrator) - Fala algo no server
+SetLogs - (Manage_chnnels) - Seta o canal de logs do bot
+AutoRole - (Manage_chnnels) - Seta um cargo para Autorole
+Setprefix - (Administrator) - Seta o prefixo do bot
+TempRole - (manage_roles) -Da um cargo por tempo limitado para um membro
             ''',
             inline = False)
             Moderação.set_thumbnail(url = self.bot.user.avatar_url)
@@ -52,20 +55,20 @@ class CogName(commands.Cog):
             name='Gerais',
             value = 
             '''
-            Hello - Comando teste do markuus
-            Aleatorio - Escolhe um numero aleatorio para você
-            Ping - Mostra o meu ping e da api do discord
-            Servers - Diz em quantos servers eu estou
-            Userinfo - puxa as informações de algum membro ou as suas
-            ServerInfo - puxa as informações do server
-            Invite - Manda o link para convidar o bot
-            Hug - Abraça um membro
-            slap - Bate em algum membro
-            kiss - Beija um membro
-            Shoot - Atira em algum membro
-            Punch - Soca algum membro
-            Donate - Envia as formas de ajudar o bot
-            Lembrete -  Define um lembrete
+Hello - Comando teste do markuus
+Aleatorio - Escolhe um numero aleatorio para você
+Ping - Mostra o meu ping e da api do discord
+Servers - Diz em quantos servers eu estou
+Userinfo - puxa as informações de algum membro ou as suas
+ServerInfo - puxa as informações do server
+Invite - Manda o link para convidar o bot
+Hug - Abraça um membro
+Slap - Bate em algum membro
+Kiss - Beija um membro
+Shoot - Atira em algum membro
+Punch - Soca algum membro
+Donate - Envia as formas de ajudar o bot
+Lembrete -  Define um lembrete
             ''',
             inline = False)
             Gerais.set_thumbnail(url = self.bot.user.avatar_url)
@@ -76,16 +79,16 @@ class CogName(commands.Cog):
             name= 'Comandos Economia', 
             value=
             '''
-            Beg - Voce pode ganhar de 0 a 2000 edinhos
-            Edinhos - Mostra quantos edinhos você tem ou do membro mencionado
-            Edinhostop - Mostra o rank de pessoas mais ricas
-            Loteria - Você pode apostar na sorte e quadruplicar seus edinhos
-            Transferir - Você pode transferir edinhos para outras pessoas
-            ccap - Jogue cara ou coroa valendo seus edinhos
-            Shop - Compra itens e venda
-            Inventario - Mostra os itens do seu iventario
-            Minerar - Minera, tem chance de vir recursos
-            Craft - Crafta alguns itens
+Rolar - Voce pode ganhar de 0 a 2000 edinhos
+Edinhos - Mostra quantos edinhos você tem ou do membro mencionado
+Edinhostop - Mostra o rank de pessoas mais ricas
+Loteria - Você pode apostar na sorte e quadruplicar seus edinhos
+Transferir - Você pode transferir edinhos para outras pessoas
+ccap - Jogue cara ou coroa valendo seus edinhos
+Shop - Compra itens e venda
+Inventario - Mostra os itens do seu iventario
+Minerar - Minera, tem chance de vir recursos
+Craft - Crafta alguns itens
             ''',
             inline = False)
             Economia.set_thumbnail(url = self.bot.user.avatar_url)
@@ -96,12 +99,8 @@ class CogName(commands.Cog):
             name = 'Suporte',
             value = 
             '''
-            Ticket - Cria um ticket no server
-            Ft - Fecha um ticket aberto
-            Adc - Adiciona um membro ao ticket
-            Rmv - Remove um membro do ticket
-            Sugest - Envia uma sugestão para meu dono
-            Report - Envia um report para meu dono
+Sugest - Envia uma sugestão para meu dono
+Report - Envia um report para meu dono
             ''',
             inline = False)
             Suporte.set_thumbnail(url = self.bot.user.avatar_url)
@@ -112,9 +111,9 @@ class CogName(commands.Cog):
             name = 'Imagens',
             value = 
             '''
-            ConquistaMine - Criar uma conquista do minecraft
-            Perfeição - Cria um meme de "perfeição"
-            Safadão -  envia uma imagem do Meliodas "safadão"
+ConquistaMine - Criar uma conquista do minecraft
+Perfeição - Cria um meme de "perfeição"
+Safadão -  envia uma imagem do Meliodas "safadão"
             ''',
             inline = False)
             Images.set_thumbnail(url = self.bot.user.avatar_url)
@@ -125,11 +124,12 @@ class CogName(commands.Cog):
             name = 'Musica',
             value = 
             '''
-            Play - Toca uma musica
-            Pause - Pausa a musica tocando
-            Skip - Pula para a proxima musica da Fila
-            Stop - Para e tira o Markuus da call
-            Remove - Remove uma musica da lista de musicas
+Play - Toca uma musica
+Pause - Pausa a musica tocando
+Skip - Pula para a proxima musica da Fila
+Stop - Para e tira o Markuus da call
+Remove - Remove uma musica da lista de musicas
+Leave - Remove o Markuus da call
             ''',
             inline = False)
             Musica.set_thumbnail(url = self.bot.user.avatar_url)
@@ -174,7 +174,7 @@ class CogName(commands.Cog):
         if ctx.author.id == banip:
             return
         elif rand == 1:
-            await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
         else:
             
             await ctx.reply('Hello, World {}'.format(ctx.author.name))
@@ -184,7 +184,7 @@ class CogName(commands.Cog):
     async def aleatorio(self, ctx,numero = 0):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             elif numero == 0:
@@ -203,7 +203,7 @@ class CogName(commands.Cog):
     async def ping(self, ctx):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
@@ -222,8 +222,9 @@ class CogName(commands.Cog):
             p3 = discord.Embed(name = 'ping', 
             description = '**🏓Calculando ping...**', color = 0x2ecc71)
             p4 = discord.Embed(name = 'ping', 
-            description = f'''Meu ping: {Ping}ms
-            API: {round((end_time - start_time) * 1000)}ms''', 
+            description = f'''
+Meu ping: {Ping}ms
+API: {round((end_time - start_time) * 1000)}ms''', 
             color = 0x2ecc71)
 
             count = 0
@@ -242,21 +243,23 @@ class CogName(commands.Cog):
     @commands.command()
     @commands.cooldown(2, 5, commands.BucketType.user)
     async def servers(self, ctx):
+        if ctx.channel.id == 944367131942854708:
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
-
             await ctx.reply('Eu estou em ' + str(len(self.bot.guilds)) + ' servers!')
+        else:
+            await ctx.send('teste')
 
-    @commands.command()
+    @commands.command(aliases = ['si', 'serveri'])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def serverInfo(self, ctx):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
@@ -299,15 +302,16 @@ class CogName(commands.Cog):
             embed.set_thumbnail(url=ctx.guild.icon_url)
             await ctx.reply(embed = embed)
 
-    @commands.command()
+    @commands.command(aliases = ['ui', 'useri'])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def userinfo(self, ctx, membro: discord.Member = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
+            e1 = self.bot.get_emoji(971487187361218620)
             
             if membro == None:
                 membro = ctx.author
@@ -323,18 +327,17 @@ class CogName(commands.Cog):
             embed.set_author(name=f"User Info - {membro}"),
             embed.set_thumbnail(url=membro.avatar_url),
 
-            embed.add_field(name = 'Nome:',
-            value = membro.display_name,inline=True)
-            embed.add_field(name = 'ID:',
-            value = membro.id,inline=True)
+            embed.add_field(name = f'{e1} Nome/ID:',
+            value = f'{membro.display_name}/{membro.id}',inline=False)
 
             embed.add_field(name = 'Conta  criada em:',
             value = membro.created_at.strftime(f" %d %m %Y"),inline=True)
+
             embed.add_field(name = 'Entrou no server em:',
             value = membro.joined_at.strftime(f" %d %m %Y") ,inline=True)
 
             embed.add_field(name = 'Maior cargo:',
-            value = membro.top_role.mention,inline=True)
+            value = membro.top_role.mention,inline=False)
 
             embed.add_field(name = 'Edinhos', 
             value = edinhos, inline = True)
@@ -345,10 +348,9 @@ class CogName(commands.Cog):
     async def avatar(self, ctx, membro: discord.Member = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
-            
             
             if membro == None:
                 membro = ctx.author
@@ -364,7 +366,7 @@ class CogName(commands.Cog):
     async def invite(self, ctx):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
@@ -379,13 +381,12 @@ class CogName(commands.Cog):
     async def hug(self, ctx, membro: discord.Member = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             elif membro == None:
                 await ctx.reply('Você precisa mencionar alguem')
                 return
-
 
             r = requests.get(
             'http://nekos.life/api/v2/img/hug')
@@ -418,7 +419,7 @@ class CogName(commands.Cog):
     async def kiss(self, ctx, membro: discord.Member = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             elif membro == None:
@@ -461,7 +462,7 @@ class CogName(commands.Cog):
     async def slap(self, ctx, membro: discord.Member = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             elif membro == None:
@@ -501,7 +502,7 @@ class CogName(commands.Cog):
     async def shoot(self, ctx, membro: discord.Member = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return   
             elif membro == None:
@@ -541,7 +542,7 @@ class CogName(commands.Cog):
     async def punch(self, ctx, membro: discord.Member = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             elif membro == None:
@@ -580,10 +581,9 @@ class CogName(commands.Cog):
     async def sad(self,ctx):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
-            
             
             choice = random.choice(sad)
             embed = discord.Embed(title = 'Sad', description = f'{ctx.author.mention} está triste')
@@ -595,38 +595,37 @@ class CogName(commands.Cog):
     async def Vote(self, ctx):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
             for i in self.bot.guilds:
                 e1 = discord.utils.get(i.emojis, name='topgg')
-            if ctx.author.id == banip:
-                return
-            else:
-                
-                server = '[Server Suport](https://discord.com/invite/xSs6xEjuvf)'
-                top = '[Top.gg](https://top.gg/bot/930619804593819699)'
-                inv = '[Invite](https://discord.com/api/oauth2/authorize?client_id=930619804593819699&permissions=8&scope=bot%20applications.commands)'
 
-                topgg = discord.Embed(title = 'Vote', 
-                description = f'''Muito obrigado por escolher votar em mim {ctx.author.mention}
-                isso me ajuda bastante e voce sabia que eu tbm tenho 
-                um server de suporte, está tudo aqui a baixo''')
-                topgg.add_field(name = f':grey_question:Está com alguma dúvidas? Entre no meu Servidor de Suporte!', value = server, inline = False)
-                topgg.add_field(name = f'{e1}Quer me ajudar a crescer? Aqui está o link do Top.gg', 
+            server = '[Server Suport](https://discord.com/invite/xSs6xEjuvf)'
+            top = '[Top.gg](https://top.gg/bot/930619804593819699)'
+            inv = '[Invite](https://discord.com/api/oauth2/authorize?client_id=930619804593819699&permissions=8&scope=bot%20applications.commands)'
+
+            topgg = discord.Embed(title = 'Vote', 
+            description = f'''
+Muito obrigado por escolher votar em mim {ctx.author.mention}
+isso me ajuda bastante e voce sabia que eu tbm tenho 
+um server de suporte, está tudo aqui a baixo
+''')
+            topgg.add_field(name = f':grey_question: Está com alguma dúvidas? Entre no meu Servidor de Suporte!', value = server, inline = False)
+            topgg.add_field(name = f'{e1} Quer me ajudar a crescer? Aqui está o link do Top.gg', 
                 value = top, inline = False)
-                topgg.add_field(name = f':partying_face:Querendo me convidar? Aqui está o link', 
+            topgg.add_field(name = f':partying_face: Querendo me convidar? Aqui está o link', 
                 value = inv, inline = False)
-                topgg.set_thumbnail(url = self.bot.user.avatar_url)
-                await ctx.reply(embed = topgg)
+            topgg.set_thumbnail(url = self.bot.user.avatar_url)
+            await ctx.reply(embed = topgg)
 
     @commands.command()
     @commands.cooldown(1,5, commands.BucketType.user)
     async def donate(self, ctx):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
@@ -635,8 +634,8 @@ class CogName(commands.Cog):
             name = 'Metodos',
             value = 
             '''
-            Pix: rafaelucas@protonmail.com(Brasil)
-            Paypal: rafaelucas@protonmail.com
+Pix: rafaelucas@protonmail.com(Brasil)
+Paypal: rafaelucas@protonmail.com
             ''')
             await ctx.reply(embed = embed)
 
@@ -645,7 +644,7 @@ class CogName(commands.Cog):
     async def Lembrete(self, ctx, tempo  = None, *, lembrete = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
 
@@ -678,8 +677,8 @@ class CogName(commands.Cog):
                 name='Erro', 
                 value=
                 '''
-                A duração desse lembrete é muito longo
-                Limite de dias é de 90 dias
+A duração desse lembrete é muito longo
+Limite de dias é de 90 dias
                 '''
                 )
             else:
@@ -689,6 +688,49 @@ class CogName(commands.Cog):
                 return
             await ctx.reply(embed=embed)
 
+    @commands.command()
+    async def botinfo(self, ctx):
+
+        e1 = self.bot.get_emoji(971189876986884186)
+        e2 = self.bot.get_emoji(971212878763917362)
+        e3 = self.bot.get_emoji(971571054046773250)
+        e4 = self.bot.get_emoji(971571518532354118)
+        e5 = self.bot.get_emoji(971487187361218620)
+
+        e = discord.Embed(title = 'Minhas informações')
+        e.set_thumbnail(url = self.bot.user.avatar_url)
+        e.add_field(name = f'{e5} Nome', value = self.bot.user.name, inline = True)
+        e.add_field(name = f'{e4} Linguagem', value = f'{e1} Python', inline = True)
+        e.add_field(name = f'{e2} Discord.py Version', value = discord.__version__, inline = False)
+        e.add_field(name = f'{e1} Python Version', value = platform.python_version())
+        e.add_field(name = f'{e3} Comandos', value = len(self.bot.commands))
+        
+
+        await ctx.reply(embed = e)
+        
+    @commands.command()
+    async def EmojiInfo(self, ctx, emoji : discord.Emoji = None):
+
+        if emoji == None:
+            await ctx.reply('Você precisa colocar o emoji')
+            return
+
+        e1 = self.bot.get_emoji(971487187361218620)
+
+        embed = discord.Embed(title = f'{emoji} Emoji Info')
+        embed.set_thumbnail(url = emoji.url)
+        embed.add_field(name = ':notepad_spiral: Nome do Emoji', value = emoji.name, inline = True)
+        embed.add_field(name = f'{e1} Id do Emoji', value = emoji.id, inline = True)
+        embed.add_field(name = ':goggles: Menção', value = f'`<:{emoji.name}:{emoji.id}>`', inline = True)
+        embed.add_field(name = ':chains: Url', value = emoji.url, inline = True)
+        embed.add_field(name = ':date: Adicionado em', value = emoji.created_at.strftime('%d %m %Y'), inline = True)
+        embed.add_field(name = ':mag_right: Servidor de origem', value = emoji.guild, inline = True)
+
+        await ctx.send(embed = embed)
+
+    @commands.command()
+    async def emoji(self, ctx, emoji : discord.Emoji = None):
+        await ctx.reply(emoji)
 
     @hello.error
     async def o(self, ctx: commands.Context, error):
@@ -696,7 +738,7 @@ class CogName(commands.Cog):
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @aleatorio.error
     async def o(self, ctx: commands.Context, error):
@@ -704,7 +746,7 @@ class CogName(commands.Cog):
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @ping.error
     async def o(self, ctx: commands.Context, error):
@@ -712,7 +754,7 @@ class CogName(commands.Cog):
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @servers.error
     async def o(self, ctx: commands.Context, error):
@@ -720,7 +762,7 @@ class CogName(commands.Cog):
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
     
     @userinfo.error
     async def o(self, ctx: commands.Context, error):
@@ -728,7 +770,7 @@ class CogName(commands.Cog):
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @serverInfo.error
     async def o(self, ctx: commands.Context, error):
@@ -736,7 +778,7 @@ class CogName(commands.Cog):
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x:  Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @invite.error
     async def o(self, ctx: commands.Context, error):
@@ -744,7 +786,7 @@ class CogName(commands.Cog):
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @hug.error
     async def o(self, ctx: commands.Context, error):
@@ -752,7 +794,7 @@ class CogName(commands.Cog):
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @slap.error
     async def o(self, ctx: commands.Context, error):
@@ -760,7 +802,7 @@ class CogName(commands.Cog):
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @kiss.error
     async def o(self, ctx: commands.Context, error):
@@ -768,7 +810,7 @@ class CogName(commands.Cog):
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @shoot.error
     async def o(self, ctx: commands.Context, error):
@@ -776,7 +818,7 @@ class CogName(commands.Cog):
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @punch.error
     async def o(self, ctx: commands.Context, error):
@@ -784,7 +826,7 @@ class CogName(commands.Cog):
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @Vote.error
     async def o(self, ctx: commands.Context, error):
@@ -792,7 +834,7 @@ class CogName(commands.Cog):
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @sad.error
     async def o(self, ctx: commands.Context, error):
@@ -800,7 +842,7 @@ class CogName(commands.Cog):
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @donate.error
     async def o(self, ctx: commands.Context, error):
@@ -808,7 +850,7 @@ class CogName(commands.Cog):
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @Lembrete.error
     async def o(self, ctx: commands.Context, error):
@@ -818,16 +860,27 @@ class CogName(commands.Cog):
             cd = 1
         await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
-async def open_account(id):
+    @emoji.error
+    async def o(self, ctx: commands.Context, error):
+        if isinstance(error, commands.BadArgument):
+            await ctx.send(':x: Possivelmente esse emoji não é valido')
+            
+        if isinstance(error, commands.CommandOnCooldown):
+            cd = round(error.retry_after)
+        if cd == 0:
+            cd = 1
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
-    if id is not None:
-
-        user = {"_id": id.id, "Nome": id.name, "Edinhos": 0}
-        myquery = { "_id": id.id}   
-        if (collection.count_documents(myquery) == 0):
-
-            collection.insert_one(user)
-
+    @EmojiInfo.error
+    async def o(self, ctx: commands.Context, error):
+        if isinstance(error, commands.BadArgument):
+            await ctx.send(':x: Possivelmente esse emoji não é valido')
+            
+        if isinstance(error, commands.CommandOnCooldown):
+            cd = round(error.retry_after)
+        if cd == 0:
+            cd = 1
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
 def setup(bot:commands.Bot):
-    bot.add_cog(CogName(bot))
+    bot.add_cog(Gerais(bot))
