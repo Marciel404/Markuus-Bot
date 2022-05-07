@@ -455,11 +455,11 @@ class CogName(commands.Cog):
 
         if isinstance(error, commands.BadArgument):
 
-            await ctx.reply(':x: Eu não encontrei esse membro no server para expulsar')
+            await ctx.reply(':x: Algo de errado aconteceu')
 
         if isinstance(error, commands.BotMissingPermissions):
             
-            await ctx.reply(':x: Desculpa, mas eu não tenho permissão "Kick_Members" para usar esse commando')
+            await ctx.reply(':x: Desculpa, mas eu não tenho permissão "Managers_role" para usar esse commando')
 
 def setup(bot:commands.Bot):
     bot.add_cog(CogName(bot))
