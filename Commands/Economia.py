@@ -13,7 +13,7 @@ class Economia(commands.Cog):
     async def edinhos(self, ctx, membro: discord.Member = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
@@ -37,7 +37,7 @@ class Economia(commands.Cog):
     async def Transferir(self, ctx, membro: discord.Member, edinhos = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             elif membro == None:
@@ -75,7 +75,7 @@ class Economia(commands.Cog):
     async def loteria(self, ctx, edinhos = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
@@ -120,7 +120,7 @@ class Economia(commands.Cog):
     async def Caraoucoroaap(self, ctx, edinhos = int, escolha = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
@@ -149,7 +149,7 @@ class Economia(commands.Cog):
     async def edinhostop(self, ctx):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
                 
@@ -173,7 +173,7 @@ class Economia(commands.Cog):
     async def inventario(self, ctx):
             rand = random.randint(0,2)
             if rand == 1:
-                    await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                    await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
                 
@@ -204,9 +204,11 @@ Computador {inv['computador']}
     async def Shop(self, ctx, opção = None, quantidade = int, *,item = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
+
+            opção = opção.lower()
             
             embed = discord.Embed(title = 'Mercado')
 
@@ -220,7 +222,7 @@ Computador {inv['computador']}
                     embed.add_field(name = name, value = f'Compra {compra}\n Venda {venda}')
 
                 await ctx.reply(embed = embed)
-            elif opção == 'Buy':
+            elif opção == 'buy':
                 item_name = item.capitalize()
 
                 await open_inv(ctx.author)
@@ -248,7 +250,7 @@ Computador {inv['computador']}
                     await ctx.reply(f'Você comprou {quantidade} {q} de {item} por {cost} edinhos')
                     await update_bank(ctx.author, - cost)
                     await update_inv(ctx.author, item_name, quantidade)
-            elif opção == 'Sell':
+            elif opção == 'sell':
                 item_name = item.capitalize()
                 item_name2 = item.lower()
 
@@ -283,7 +285,7 @@ Computador {inv['computador']}
     async def craft(self, ctx, opção = None, *, craft = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
@@ -346,11 +348,11 @@ Computador {inv['computador']}
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
         if isinstance(error, commands.MemberNotFound):
 
-            await ctx.reply('Não encontrei esse membro no server')
+            await ctx.reply(':x: Não encontrei esse membro no server')
 
     @edinhostop.error
     async def beg_error(self, ctx: commands.Context, error):
@@ -358,7 +360,7 @@ Computador {inv['computador']}
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @loteria.error
     async def beg_error(self, ctx: commands.Context, error):
@@ -366,7 +368,7 @@ Computador {inv['computador']}
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @Transferir.error
     async def beg_error(self, ctx: commands.Context, error):
@@ -374,11 +376,11 @@ Computador {inv['computador']}
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
         if isinstance(error, commands.MemberNotFound):
 
-            await ctx.reply('Não encontrei esse membro no server')
+            await ctx.reply(':x: Não encontrei esse membro no server')
 
     @Caraoucoroaap.error
     async def beg_error(self, ctx: commands.Context, error):
@@ -386,7 +388,7 @@ Computador {inv['computador']}
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @inventario.error
     async def beg_error(self, ctx: commands.Context, error):
@@ -394,7 +396,7 @@ Computador {inv['computador']}
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @Shop.error
     async def beg_error(self, ctx: commands.Context, error):
@@ -402,7 +404,7 @@ Computador {inv['computador']}
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @craft.error
     async def beg_error(self, ctx: commands.Context, error):
@@ -410,7 +412,7 @@ Computador {inv['computador']}
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f'Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
 async def open_account(id):
 
