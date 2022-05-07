@@ -195,8 +195,7 @@ class CogName(commands.Cog):
             if msg == None:
                 await ctx.reply('Você precisa falar algo')
             else:
-                await ctx.message.delete()
-                await ctx.send(f'{msg} \n\nFalado por {ctx.author.mention}')
+                await ctx.reply(f'{msg} \n\nFalado por {ctx.author.mention}')
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -314,101 +313,153 @@ class CogName(commands.Cog):
                     await ctx.reply(embed = e)
                     await ctx.guild.unban(user)
 
+    @commands.command()
+    @commands.has_permissions(manage_roles = True)
+    async def temprole(ctx, membro : discord.Member = None, role : discord.Role = None, tempo = None):
+
+        seconds = 0
+        if tempo.lower().endswith("d"):
+            seconds += int(tempo[:-1]) * 60 * 60 * 24
+            counter = f"{seconds // 60 // 60 // 24} dias"
+        if tempo.lower().endswith("h"):
+            seconds += int(tempo[:-1]) * 60 * 60
+            counter = f"{seconds // 60 // 60} horas"
+        elif tempo.lower().endswith("m"):
+            seconds += int(tempo[:-1]) * 60
+            counter = f"{seconds // 60} minutos"
+        elif tempo.lower().endswith("s"):
+            seconds += int(tempo[:-1])
+            counter = f"{seconds} segundos"
+
+        await membro.add_roles(role)
+        await ctx.send(f'{role.mention} setado para {membro.mention} por {counter}')
+        await asyncio.sleep(seconds)
+        await membro.remove_roles(role)
+        await ctx.send(f'{role.mention} removido de {membro.mention}')
+
     @setlogs.error
     async def setlogs_error(self,ctx: commands.context, error):
         if isinstance(error, commands.MissingPermissions):
             
-            await ctx.reply("Você não tem permissão para usar esse comando")
+            await ctx.reply(":x: Você não tem permissão para usar esse comando")
 
     @autorole.error
     async def setlogs_error(self,ctx: commands.context, error):
         if isinstance(error, commands.MissingPermissions):
             
-            await ctx.reply("Você não tem permissão para usar esse comando")
+            await ctx.reply(":x: Você não tem permissão para usar esse comando")
+
+    @setprefix.error
+    async def setlogs_error(self,ctx: commands.context, error):
+        if isinstance(error, commands.MissingPermissions):
+            
+            await ctx.reply(":x: Você não tem permissão para usar esse comando")
 
     @kick.error
     async def kick_error(self,ctx, error):
         if isinstance(error, commands.CommandOnCooldown):
 
-            await ctx.reply('Você precisa esperar 5 segundos parta usar esse comando de novo')
+            await ctx.reply(':x: Você precisa esperar 5 segundos parta usar esse comando de novo')
 
         if isinstance(error, commands.MissingPermissions):
             
-            await ctx.reply("Você não tem permissão para usar esse comando")
+            await ctx.reply(":x: Você não tem permissão para usar esse comando")
 
         if isinstance(error, commands.BadArgument):
 
-            await ctx.reply('Eu não encontrei esse membro no server para expulsar')
+            await ctx.reply(':x: Eu não encontrei esse membro no server para expulsar')
 
         if isinstance(error, commands.BotMissingPermissions):
             
-            await ctx.reply('Desculpa, mas eu não tenho permissão "Kick_Members" para usar esse commando')
+            await ctx.reply(':x: Desculpa, mas eu não tenho permissão "Kick_Members" para usar esse commando')
 
     @Ban.error
     async def ban_error(self,ctx: commands.context, error):
         if isinstance(error, commands.CommandOnCooldown):
 
-            await ctx.reply('Você precisa esperar 5 segundos parta usar esse comando de novo')
+            await ctx.reply(':x: Você precisa esperar 5 segundos parta usar esse comando de novo')
 
         if isinstance(error, commands.MissingPermissions):
             
-            await ctx.reply("Você não tem permissão para usar esse comando")
+            await ctx.reply(":x: Você não tem permissão para usar esse comando")
 
         if isinstance(error, commands.MemberNotFound):
 
-            await ctx.reply('Eu não encontrei esse membro no server para banir, se deseja banir ele, use o "BanId"')
+            await ctx.reply(':x: Eu não encontrei esse membro no server para banir, se deseja banir ele, use o "BanId"')
 
         if isinstance(error, commands.BotMissingPermissions):
             
-            await ctx.reply('Desculpa, mas eu não tenho permissão "Ban_Members" para usar esse commando')
+            await ctx.reply(':x: Desculpa, mas eu não tenho permissão "Ban_Members" para usar esse commando')
 
     @unban.error
     async def unban_error(self,ctx: commands.context, error):
         if isinstance(error, commands.BotMissingPermissions):
             
-            await ctx.reply('Desculpa, mas eu não tenho permissão "Ban_Members" para usar esse commando')
+            await ctx.reply(':x: Desculpa, mas eu não tenho permissão "Ban_Members" para usar esse commando')
+
+        if isinstance(error, commands.BadArgument):
+
+            await ctx.reply(':x: Desculpa mas não encontri esse membro nos bans do server')
 
         if isinstance(error, commands.MissingPermissions):
             
-            await ctx.reply("Você não tem permissão para usar esse comando")
+            await ctx.reply(":x: Você não tem permissão para usar esse comando")
 
     @say.error
     async def say_error(self,ctx: commands.context, error):
         if isinstance(error, commands.CommandOnCooldown):
 
-            await ctx.reply(f'Você precisa esperar 5 segundos para  usar esse comando de novo')
+            await ctx.reply(f':x: Você precisa esperar 5 segundos para  usar esse comando de novo')
 
         if isinstance(error, commands.MissingPermissions):
             
-            await ctx.reply("Você não tem permissão para usar esse comando")
+            await ctx.reply(":x: Você não tem permissão para usar esse comando")
 
     @clear.error
     async def clear_error(self,ctx: commands.context, error):
         if isinstance(error, commands.CommandOnCooldown):
 
-            await ctx.reply(f'Você precisa esperar 5 segundos para  usar esse comando de novo')
+            await ctx.reply(f':x: Você precisa esperar 5 segundos para  usar esse comando de novo')
         
         if isinstance(error, commands.BotMissingPermissions):
             
-            await ctx.reply('Desculpa, mas eu não tenho permissão "Manage_chennels" para usar esse commando')
+            await ctx.reply(':x: Desculpa, mas eu não tenho permissão "Manage_chennels" para usar esse commando')
 
         if isinstance(error, commands.MissingPermissions):
             
-            await ctx.reply("Você não tem permissão para usar esse comando")
+            await ctx.reply(":x: Você não tem permissão para usar esse comando")
 
     @banid.error
     async def clear_error(self,ctx: commands.context, error):
         if isinstance(error, commands.CommandOnCooldown):
 
-            await ctx.reply(f'Você precisa esperar 5 segundos para  usar esse comando de novo')
+            await ctx.reply(f':x: Você precisa esperar 5 segundos para  usar esse comando de novo')
         
         if isinstance(error, commands.BotMissingPermissions):
             
-            await ctx.reply('Desculpa, mas eu não tenho permissão "Manage_chennels" para usar esse commando')
+            await ctx.reply(':x: Desculpa, mas eu não tenho permissão "Ban_Members" para usar esse commando')
 
         if isinstance(error, commands.MissingPermissions):
             
-            await ctx.reply("Você não tem permissão para usar esse comando")
+            await ctx.reply(":x: Você não tem permissão para usar esse comando")
+    
+    @temprole.error
+    async def kick_error(self,ctx, error):
+        if isinstance(error, commands.CommandOnCooldown):
+
+            await ctx.reply(':x: Você precisa esperar 5 segundos parta usar esse comando de novo')
+
+        if isinstance(error, commands.MissingPermissions):
+            
+            await ctx.reply(":x: Você não tem permissão para usar esse comando")
+
+        if isinstance(error, commands.BadArgument):
+
+            await ctx.reply(':x: Eu não encontrei esse membro no server para expulsar')
+
+        if isinstance(error, commands.BotMissingPermissions):
+            
+            await ctx.reply(':x: Desculpa, mas eu não tenho permissão "Kick_Members" para usar esse commando')
 
 def setup(bot:commands.Bot):
     bot.add_cog(CogName(bot))
