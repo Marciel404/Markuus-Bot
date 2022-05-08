@@ -13,7 +13,7 @@ class Gerais(commands.Cog):
     async def help(self, ctx):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
@@ -170,21 +170,24 @@ Leave - Remove o Markuus da call
 
     @commands.command()
     async def hello(self, ctx):
-        rand = random.randint(0,2)
-        if ctx.author.id == banip:
+        if ctx.channel.id != 8976549468796:
             return
-        elif rand == 1:
-            await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
         else:
-            
-            await ctx.reply('Hello, World {}'.format(ctx.author.name))
+            rand = random.randint(0,2)
+            if ctx.author.id == banip:
+                return
+            elif rand == 1:
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+            else:
+                
+                await ctx.reply('Hello, World {}'.format(ctx.author.name))
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def aleatorio(self, ctx,numero = 0):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             elif numero == 0:
@@ -203,7 +206,7 @@ Leave - Remove o Markuus da call
     async def ping(self, ctx):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
@@ -246,41 +249,43 @@ API: {round((end_time - start_time) * 1000)}ms''',
         if ctx.channel.id == 944367131942854708:
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
             await ctx.reply('Eu estou em ' + str(len(self.bot.guilds)) + ' servers!')
         else:
-            await ctx.send('teste')
+            await ctx.reply('teste')
 
     @commands.command(aliases = ['si', 'serveri'])
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def serverInfo(self, ctx):
+    async def serverInfo(self, ctx, server : discord.Guild = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
+
+            if server == None:
+                server = ctx.guild
             
-            
-            ct = len(ctx.guild.text_channels)
-            cv = len(ctx.guild.voice_channels)
+            ct = len(server.text_channels)
+            cv = len(server.voice_channels)
             tc = ct + cv
 
-            embed = discord.Embed(title = f'**{ctx.guild.name}**',
-            color = ctx.guild.owner.top_role.color)
+            embed = discord.Embed(title = f'**{server.name}**',
+            color = server.owner.top_role.color)
 
             embed.add_field(name = ':scroll: Nome:', 
-            value = ctx.guild.name,
+            value = server.name,
             inline = True)
             
             embed.add_field(name = ':computer:  Id do server:', 
-            value = ctx.guild.id,
+            value = server.id,
             inline = True)
 
             embed.add_field(name = ':busts_in_silhouette: Membros:', 
-            value = len(ctx.guild.members),
+            value = len(server.members),
             inline = True)
 
             embed.add_field(name = f':speech_balloon: Canais:({tc})', 
@@ -288,18 +293,18 @@ API: {round((end_time - start_time) * 1000)}ms''',
             inline = True)
 
             embed.add_field(name = ':shield: Verificação:',
-            value = '{}'.format(str(ctx.guild.verification_level).upper()),
+            value = '{}'.format(str(server.verification_level).upper()),
             inline = True)
 
             embed.add_field(name = ':crown: Dono:', 
-            value = '{}\n ({})'.format(ctx.guild.owner.mention,ctx.guild.owner.id),
+            value = '{}\n ({})'.format(server.owner.mention,server.owner.id),
             inline = True)
 
             embed.add_field(name = ':calendar_spiral:Criado em:', 
-            value = ctx.guild.created_at.strftime('%d %m %Y'),
+            value = server.created_at.strftime('%d %m %Y'),
             inline = True)
 
-            embed.set_thumbnail(url=ctx.guild.icon_url)
+            embed.set_thumbnail(url=server.icon_url)
             await ctx.reply(embed = embed)
 
     @commands.command(aliases = ['ui', 'useri'])
@@ -307,7 +312,7 @@ API: {round((end_time - start_time) * 1000)}ms''',
     async def userinfo(self, ctx, membro: discord.Member = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
@@ -348,7 +353,7 @@ API: {round((end_time - start_time) * 1000)}ms''',
     async def avatar(self, ctx, membro: discord.Member = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
@@ -366,7 +371,7 @@ API: {round((end_time - start_time) * 1000)}ms''',
     async def invite(self, ctx):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
@@ -381,7 +386,7 @@ API: {round((end_time - start_time) * 1000)}ms''',
     async def hug(self, ctx, membro: discord.Member = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             elif membro == None:
@@ -419,7 +424,7 @@ API: {round((end_time - start_time) * 1000)}ms''',
     async def kiss(self, ctx, membro: discord.Member = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             elif membro == None:
@@ -462,7 +467,7 @@ API: {round((end_time - start_time) * 1000)}ms''',
     async def slap(self, ctx, membro: discord.Member = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             elif membro == None:
@@ -502,7 +507,7 @@ API: {round((end_time - start_time) * 1000)}ms''',
     async def shoot(self, ctx, membro: discord.Member = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return   
             elif membro == None:
@@ -542,7 +547,7 @@ API: {round((end_time - start_time) * 1000)}ms''',
     async def punch(self, ctx, membro: discord.Member = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             elif membro == None:
@@ -581,7 +586,7 @@ API: {round((end_time - start_time) * 1000)}ms''',
     async def sad(self,ctx):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
@@ -595,12 +600,12 @@ API: {round((end_time - start_time) * 1000)}ms''',
     async def Vote(self, ctx):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
-            
+
             e1 = self.bot.get_emoji(971189865532244028)
-            
+
             server = '[Server Suport](https://discord.com/invite/xSs6xEjuvf)'
             top = '[Top.gg](https://top.gg/bot/930619804593819699)'
             inv = '[Invite](https://discord.com/api/oauth2/authorize?client_id=930619804593819699&permissions=8&scope=bot%20applications.commands)'
@@ -624,7 +629,7 @@ um server de suporte, está tudo aqui a baixo
     async def donate(self, ctx):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
             
@@ -643,7 +648,7 @@ Paypal: rafaelucas@protonmail.com
     async def Lembrete(self, ctx, tempo  = None, *, lembrete = None):
             rand = random.randint(0,2)
             if rand == 1:
-                await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
+                await ctx.reply('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
             elif ctx.author.id == banip:
                 return
 
@@ -703,7 +708,7 @@ Limite de dias é de 90 dias
         e.add_field(name = f'{e2} Discord.py Version', value = discord.__version__, inline = False)
         e.add_field(name = f'{e1} Python Version', value = platform.python_version())
         e.add_field(name = f'{e3} Comandos', value = len(self.bot.commands))
-        
+
 
         await ctx.reply(embed = e)
         
@@ -725,7 +730,7 @@ Limite de dias é de 90 dias
         embed.add_field(name = ':date: Adicionado em', value = emoji.created_at.strftime('%d %m %Y'), inline = True)
         embed.add_field(name = ':mag_right: Servidor de origem', value = emoji.guild, inline = True)
 
-        await ctx.send(embed = embed)
+        await ctx.reply(embed = embed)
 
     @commands.command()
     async def emoji(self, ctx, emoji : discord.Emoji = None):
@@ -746,7 +751,6 @@ Limite de dias é de 90 dias
         if cd == 0:
             cd = 1
         await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
-
     @ping.error
     async def o(self, ctx: commands.Context, error):
         if isinstance(error, commands.CommandOnCooldown):
@@ -773,11 +777,17 @@ Limite de dias é de 90 dias
 
     @serverInfo.error
     async def o(self, ctx: commands.Context, error):
+
+        if isinstance(error, commands.GuildNotFound):
+
+            await ctx.reply(f':x: Não estou em nenhum server com o id `{error.argument}` então não tenho informações')
+            return
+
         if isinstance(error, commands.CommandOnCooldown):
             cd = round(error.retry_after)
         if cd == 0:
             cd = 1
-        await ctx.reply(f':x:  Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
+        await ctx.reply(f':x: Você precisa esperar {better_time(cd)} para  usar esse comando de novo')
 
     @invite.error
     async def o(self, ctx: commands.Context, error):
@@ -861,8 +871,9 @@ Limite de dias é de 90 dias
 
     @emoji.error
     async def o(self, ctx: commands.Context, error):
-        if isinstance(error, commands.BadArgument):
-            await ctx.send(':x: Possivelmente esse emoji não é valido')
+        if isinstance(error, commands.EmojiNotFound):
+            await ctx.reply(':x: Possivelmente esse emoji não é valido')
+            return
             
         if isinstance(error, commands.CommandOnCooldown):
             cd = round(error.retry_after)
@@ -872,8 +883,9 @@ Limite de dias é de 90 dias
 
     @EmojiInfo.error
     async def o(self, ctx: commands.Context, error):
-        if isinstance(error, commands.BadArgument):
-            await ctx.send(':x: Possivelmente esse emoji não é valido')
+        if isinstance(error, commands.EmojiNotFound):
+            await ctx.reply(':x: Possivelmente esse emoji não é valido')
+            return
             
         if isinstance(error, commands.CommandOnCooldown):
             cd = round(error.retry_after)
