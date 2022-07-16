@@ -32,7 +32,7 @@ class CogName(commands.Cog):
                 logs.insert_one(server)
                 await ctx.reply('Canal de logs setado para {}, se desejar remover as logs use o comando sem mencionar um chat'.format(id.mention))
             else:
-                logs.update({"_id" : ctx.guild.id}, {"$set":{"canal": id2}})
+                logs.update_one({"_id" : ctx.guild.id}, {"$set":{"canal": id2}})
                 await ctx.reply('Canal de logs setado para {}, se desejar remover as logs use o comando sem mencionar um chat'.format(id.mention))
 
     @commands.command()
