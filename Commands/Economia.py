@@ -14,14 +14,11 @@ class Economia(commands.Cog):
             rand = random.randint(0,2)
             if rand == 1:
                 await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
-            elif ctx.author.id == banip:
+            elif ctx.author.id in banip:
                 return
-            
 
             if membro == None:
                 membro = ctx.author
-            else:
-                membro = membro
 
             await open_account(membro)
 
@@ -38,7 +35,7 @@ class Economia(commands.Cog):
             rand = random.randint(0,2)
             if rand == 1:
                 await ctx.send('Sabia que Me manter está ficando dificil?\n que tal me ajudar doando algo?')
-            elif ctx.author.id == banip:
+            elif ctx.author.id in banip:
                 return
             elif membro == None:
                 await ctx.reply('Você precisa mencionar alguem')
